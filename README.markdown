@@ -20,7 +20,7 @@ qsort          = (foldr cons nil)
 qsort_example = (qsort [5,6,1,4,3,7,2])
 ```
 
-You can run this by typing `mel qsort_example` on the Prelude directory. It reads all `.mel` files on the directory looking for `qsort_example` definition, expands it to a pure Lambda Calculus term, evaluates, and then reads back to the Caramel syntax:
+You can run this by typing `mel qsort_example` on the Prelude directory. It looks for the `qsort_example` definition through all `.mel` files on the current directory, expands it to a pure Lambda Calculus term, evaluates, and then prints the result on the Caramel syntax:
 
 ```haskell
 $ cd Prelude
@@ -46,7 +46,7 @@ $ mel qsort_example.lam
 
 In a future, you'll be also able to compile your programs to other languages such as JavaScript, Haskell and Scheme using `mel my_program.js`, for example.
 
-More examples can be found on the Prelude directory. Mind most files there were written on the Lambda Calculus before Caramel and are under ongoing refactoring.
+More examples can be found on the Prelude directory, with the "example" prefix. Mind the remaining of the files there were mostly written on the Lambda Calculus before Caramel and are under ongoing refactoring.
 
 # Featured syntax-sugars
 
