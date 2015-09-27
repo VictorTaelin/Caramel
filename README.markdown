@@ -46,6 +46,8 @@ $ mel qsort_example.lam
 
 In a future, you'll be also able to compile your programs to other languages such as JavaScript, Haskell and Scheme using `mel my_program.js`, for example.
 
+More examples can be found on the Prelude directory. Mind most files there were written on the Lambda Calculus before Caramel and are under ongoing refactoring.
+
 # Featured syntax-sugars
 
   * [Lambdas](#lambdas)
