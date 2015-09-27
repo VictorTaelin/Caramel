@@ -1,0 +1,37 @@
+-- Caramel understands recursive functions, but it won't enable
+-- the recursion by default. Instead, it prepares the function
+-- so that applying a fixed-point combinator makes it recursive.
+-- It does so by merely appending an extra argument to the function
+-- foo x     = (succ (foo x)) becomes
+-- foo foo x = (succ (foo x))
+-- This allows you to pick your fixed-point combinator of choice.
+
+-- Below is a naive definition os `sum` on Caramel:
+-- The sum of 0 is 0;
+-- the sum of `n` is `n` plus the sum of its predecessor.
+sum_ n = (if (is_zero n) 0 (+ n (sum_ (pred n))))
+
+-- Now, before actually using `sum`, you have to fuel its recursion.
+-- You could, for example, use the famous Y-combinator, which gives the
+-- complete power of recursion:
+
+unbounded_sum = (Y sum_)
+
+-- Or you could use the G combinator, which gives you bounded recursion:
+
+bounded_sum = (n -> (G n sum_ n))
+
+-- Since we know that our `sum` function has a max depth of exactly `n`,
+-- the later definition fits it perfecly. It is better in general, as it
+-- has a normal form, halts in less steps, and can be evaluated by more
+-- evaluators, including Lamping's abstract algorithm with tags.
+
+-- Both examples below evaluate to 45 (sum from 0 til 10), but the first
+-- one won't halt on Caramel's evaluator due to overly strict reduction 
+-- strategy. In order to use `sum_example_unbounded`, you'd need to compile
+-- it to λ-calculus and use it in a less strict evaluator such Haskell.
+
+sum_example_bounded   = (unbounded_sum 10)
+sum_example_unbounded = (bounded_sum 10)
+
+-- As with many examples, there are more efficient implementations of sum.

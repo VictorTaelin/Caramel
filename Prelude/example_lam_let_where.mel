@@ -1,0 +1,18 @@
+-- All those examples are exactly equivalent and are all
+-- expanded to the same λ-calculus term.
+
+-- You can use lambdas to define variables on the λ-calculus.
+lam_example = ((double square -> (double (square 3))) 
+    (mul 2) 
+    (x -> (mul x x)))
+
+-- The let syntax uses `{}`, `;` and `=` and is more readable.
+let_example  = {
+    double   = (mul 2);
+    square x = (mul x x);
+    (double (square 3))}
+
+-- The implicit where syntax uses the layout model is even more so.
+where_example = (double (square 3))
+    double    = (mul 2)
+    square x  = (mul x x)

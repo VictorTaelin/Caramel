@@ -1,0 +1,25 @@
+-- Church Booleans
+true a b  = a
+false a b = b
+if        = id
+and p q   = (p q p)
+or p q    = (p p q)
+not p a b = (p b a)
+xor p q   = (or (and p (not q)) (and (not p) q))
+nand p q  = (not (and p q))
+nxor p q  = (not (xor p q))
+
+-- Experimental: using deriers to automatically
+-- derive constructors, folds, etc for the ADT.
+
+Bool = #{True | False}
+
+True     = (Ctor 0 Bool)
+False    = (Ctor 1 Bool)
+If       = (Fold Bool)
+And a b  = (If a (If b True False) False)
+Or a b   = (If a True (If b True False))
+Not a    = (If a False True)
+Xor a b  = (Or (And a (Not b)) (And (Not b) a))
+Nand a b = (Not (And a b))
+Nxor a b = (Not (Xor a b))

@@ -1,0 +1,17 @@
+-- Common combinators
+id a       = a
+const a b  = a
+go n f     = (n f id)
+flip f x y = (f y x)
+comp f g x = (f (g x))
+on f g x y = (f (g x y))
+@ x f      = (f x)
+
+I = id
+B = comp
+C = flip
+K = const
+W = (x y -> (x y y))
+S = (f g x -> (f x (g x)))
+G = go
+Y = (f -> ((x -> (f (x x))) (x -> (f (x x)))))

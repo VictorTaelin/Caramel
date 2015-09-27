@@ -1,0 +1,24 @@
+name:                Caramel
+version:             0.1.0.0
+synopsis:            A modern syntax for the oldest programming language in the world.
+license:             MIT
+license-file:        LICENSE
+author:              Victor Hernandes Silva Maia
+maintainer:          srvictormaia@gmail.com
+homepage:            https://github.com/srvictormaia/caramel
+category:            Language
+build-type:          Simple
+cabal-version:       >=1.10
+
+executable mel 
+  main-is:             Main.hs 
+  build-depends:       base >=4.8 && <4.9, containers >= 0.5 && < 0.6, directory >= 1.2 && < 1.3, split >=0.2 && <0.3
+  default-language:    Haskell2010
+
+library
+  exposed-modules:     Caramel
+  other-extensions:    OverloadedStrings, FlexibleContexts
+  build-depends:       base >=4.8 && <4.9, containers >=0.5 && <0.6, split >=0.2 && <0.3
+  default-language:    Haskell2010
+  
+  

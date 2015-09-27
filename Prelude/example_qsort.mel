@@ -1,0 +1,17 @@
+-- A pretty sorting example.
+-- Note this is just a demo of the syntax - qsort is not quite the QuickSort
+-- because pattern matching on Church Lists is slow! To get the actual
+-- QuickSort one just has to use Scott lists (i.e., `(to_scott_list
+-- [9,7,6,10,3,5,1])`). See "open problems" for a discussion of the encodings.
+-- There are much faster sorting functions for church lists, though. (TODO:
+-- show/explain those).
+
+qsort          = (foldr cons nil)
+    nil        = []
+    cons x xs  = (flatten [smalls,[x],bigs])
+        smalls = (filter (< x) xs)
+        bigs   = (filter (> x) xs)
+
+qsort_example = (qsort [5,6,1,4,3,7,2])
+
+--main = qsort_example
