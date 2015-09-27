@@ -28,7 +28,7 @@ $ mel qsort_example
 [1,2,3,4,5,6,7]
 ```
 
-If you want to see the actual lambda calculus instead, just append `.lam` to the name of the term you want to evaluate - it will just output the unsugared λc view of the term, using [De Bruijn Index](https://en.wikipedia.org/wiki/De_Bruijn_index):
+If you want to see the actual Lambda Calculus code, just append `.lam` to the name of the term you want to evaluate - it will output the unsugared view of the term, using [De Bruijn Index](https://en.wikipedia.org/wiki/De_Bruijn_index):
 
 ```bash
 $ mel qsort_example.lam
