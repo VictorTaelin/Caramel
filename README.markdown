@@ -1,6 +1,6 @@
 # Caramel
 
-         🍮  A modern syntax for the oldest programming language in the world. 🍮
+          🍮 A modern syntax for the oldest programming language in the world. 🍮
 
 Caramel is a set of bidirectional, Haskell-inspired **syntax-sugars** that are expanded to, and contracted from, [λ-Calculus](https://en.wikipedia.org/wiki/Lambda_calculus) terms. Caramel is not a new programming language - it is a new syntax for an old language, enabling it to be written in a much saner way. The implementation aims to be simple and terse and currently stands at around 350 lines of commented Haskell code.
 
@@ -33,12 +33,12 @@ If you want to see the actual Lambda Calculus code, just append `.lam` to the na
 ```bash
 $ mel qsort_example.lam
 λλ((1 λλ(1 0)) 
-    ((1 λλ(1 (1 0))) 
-    ((1 λλ(1 (1 (1 0))))
-    ((1 λλ(1 (1 (1 (1 0))))) 
-    ((1 λλ(1 (1 (1 (1 (1 0)))))) 
-    ((1 λλ(1 (1 (1 (1 (1 (1 0))))))) 
-    ((1 λλ(1 (1 (1 (1 (1 (1 (1 0)))))))) 
+  ((1 λλ(1 (1 0))) 
+  ((1 λλ(1 (1 (1 0))))
+  ((1 λλ(1 (1 (1 (1 0))))) 
+  ((1 λλ(1 (1 (1 (1 (1 0)))))) 
+  ((1 λλ(1 (1 (1 (1 (1 (1 0))))))) 
+  ((1 λλ(1 (1 (1 (1 (1 (1 (1 0)))))))) 
     0 )))))))
 # (This is how [1,2,3,4,5,6,7] is usually represented on the Lambda Calculus.)
 # (Identation added manually.)
