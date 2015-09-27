@@ -1,6 +1,0 @@
--- some top level variables
-a = 3
-b = 2
-
--- an example program
-top_level_defs_example = (mul a b)
