@@ -287,7 +287,7 @@ freeVars term = fold lam app var nat lst tup chr str wrd adt leT term S.empty wh
         ++ concatMap (\ (_,vars,body) -> body (foldr S.insert boundVars vars)) defs
 
 -- Sorts let expressions so that a term that depends on the other always come before.
--- Also adds an extre bound variable for recursive terms, in order to enable further use
+-- Also adds an extra bound variable for recursive terms, in order to enable further use
 -- with fixed-point combinators and similars, i.e., 
 -- `sum n     = (is_zero? n 0 (add n (sum (pred n 1))))` becomes 
 -- `sum sum n = (is_zero? n 0 (add n (sum (pred n 1))))`
