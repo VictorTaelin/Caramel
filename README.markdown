@@ -337,7 +337,7 @@ There are more things than I can think of. Here are some of them:
 
 - Implement fast evaluators (the current one is as slow as it gets).
 
-- Compile to `Tromp's Binary Lambda Calculus`, as suggested by `murbard2` on [Hacker News](https://news.ycombinator.com/item?id=10288249).
+- Compile to [`Tromp's Binary Lambda Calculus`](https://tromp.github.io/cl/cl.html), as suggested by `murbard2` on [Hacker News](https://news.ycombinator.com/item?id=10288249).
 
 - Web interface (compiled via GHCJS?) as suggested by `tikhonj` also on [Hacker News](https://news.ycombinator.com/item?id=10288249).
 
