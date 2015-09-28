@@ -35,7 +35,7 @@ three = (triple.get_third (1,2,3))
 ten = (@ add (3,7))
 
 -- Lens combinators are cool for deep updates
--- This adds 10 to the 4 there and becomes ((1,2),(3,44))
+-- This adds 10 to the 4 there and becomes ((1,2),(3,14))
 lens_are_cool = (! matrix [snd,snd] += 10)
     matrix = ((1,2),(3,4))
     snd    = pair.second
