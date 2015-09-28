@@ -16,7 +16,7 @@
 -- 1st constructor of the List type). The first number refers to the
 -- constructor, the second refers to the field.
 --
--- (Show (List Bool) (Cons True (Cons False Nil))
+-- (Show (List Bool) (Cons True (Cons False Nil)))
 -- Notice that "Show" requires a complete type.
 --
 -- Note:
