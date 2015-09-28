@@ -94,7 +94,7 @@ Lambda Calculus applications substitutes bound variables of a lambda abstraction
 Expands to/from:
 
 ```haskell
-λλλ(((f x) y) z)
+(((f x) y) z)
 ```
 
 ## Let and variable assignment
