@@ -47,7 +47,7 @@ $ mel qsort_example.lam
 In a future, you'll be also able to compile your programs to other languages such as JavaScript, Haskell and Scheme using `mel my_program.js`, for example.
 
 More examples can be found on the Prelude directory, with the "example" prefix. I suggest looking at [this one](https://github.com/MaiaVictor/caramel/blob/master/Prelude/example_many_things.mel) first.
-See [`example_qsort.mel`](https://github.com/MaiaVictor/caramel/blob/master/Prelude/example_qsort.mel) for more on the QuickSort example. Mind the remaining of the files there were mostly written on the Lambda Calculus before Caramel and are under ongoing refactoring.
+See [`example_qsort.mel`](https://github.com/MaiaVictor/caramel/blob/master/Prelude/example_qsort.mel) for more on the QuickSort example. Mind most of the remaining of files there were written before Caramel and need some refactoring to better show Caramel's syntax.
 
 # Featured syntax-sugars
 
