@@ -282,7 +282,7 @@ a = 7 -- I'm too
 
 ## ADTs
 
-First-class Algebraic DataTypes (ADT) are experimental and the most complex feature here. They are (supposed to be) first class descriptions of algebraic datatypes. While it works, it is very likely that my design is imperfect and there are better solutions. They replicate most of the functionaly of Haskell's datatypes. They do not replicate the typechecking side.
+First-class Algebraic DataTypes (ADTs) are experimental and the most complex feature here. The point is that defining functions for a datatype on the λ-calculus is hard when you have to deal with church/scott encodings yourself. Combining ADTs with **high-order derivers**, many functions such as (on the List case) `cons`, `nil` (constructors), `head`, `tail` (getters), `map`, `zipWith` (some algorithms), as well as lenses, monads and so on, can be derived automatically. While this already works (for Scott encodings only), it is very likely that my design is imperfect and there are better solutions. Example:
 
 In Haskell, we have:
 
@@ -302,7 +302,7 @@ Tree a = #{Tree {tag : a, children : (List *)}}
 TLB    = (Tree (List Bool))
 ```
 
-Notice recursion uses the special `*` character, repeated n times, which works like bruijn indexed variables, refering to the nth enclosing complete ADT. Polymorphic types are just functions returning ADTs. Also, the syntax does not (as a design principle) create any top level definition. To get the constructors, pattern matching, accessors and so on you have in Haskell, you need to use **high-order derivers** such as `Ctor`, `Show`, `Match`, `Getter`, `Fold`.
+Notice recursion uses the special `*` character, repeated n times, which works like bruijn indexed variables, refering to the nth enclosing complete ADT. Polymorphic types are just functions returning ADTs. Also, the syntax does not (as a design principle) create any top level definition. We can get many free functions for those datatypes using **high-order derivers** such as `Ctor`, `Show`, `Match`, `Getter`, `Fold`.
 
 ```haskell
 Bool  = #{True | False}
@@ -312,6 +312,7 @@ show  = (Show Bool)
 if    = (Match Bool)
 ... and so on
 ```
+Note this has nothing to do with types or typechecking. 
 
 Consult [`Prelude/derivers.mel`](https://github.com/maiavictor/caramel/blob/master/Prelude/derivers.mel) for the available derivers.  
 
@@ -341,7 +342,9 @@ There are more things than I can think of. Here are some of them:
 
 - Web interface (compiled via GHCJS?) as suggested by `tikhonj` also on [Hacker News](https://news.ycombinator.com/item?id=10288249).
 
-- Allow omiting application parens in some places such as inside lists (i.e., `[f 1, f 2]` istead of `[(f 1), (f 2)]`, let syntax, etc.
+- Allow omiting application parens in some places such as inside lists (i.e., `[f 1, f 2]` istead of `[(f 1), (f 2)]`, let syntax, etc).
+
+- Shorter syntax for ADTs when you don't want to specify field names (i.e., `List a = #{Cons a * | Nil}`).
 
 - Translation to other languages, example: `mel main.js`, `mel main.rb`, etc.
 
