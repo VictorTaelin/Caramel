@@ -202,7 +202,7 @@ Very similarly to natural numbers and lists, tuples have a natural implementatio
 Is the same as:
 
 ```haskell
-(t -> (a b c))
+(t -> (t a b c))
 ```
 
 And expands to/from the Lambda Calculus as:
@@ -213,7 +213,7 @@ And expands to/from the Lambda Calculus as:
 
 ## Chars
 
-Although unconventional, chars can be encoded as functions of two variables that return octuples. For example, the char 'a', which is 97 in ASCII and 01100001 in binary, can be represented as the Haskell function (\ i o t -> (t o i i o o o o i)). I'm not sure this is a good idea, though, and am considering replacing by a 8-tuple of bools, since that can be encoded on the ADT system.  The caramel syntax uses is identical to Haskell's char syntax and does that expansion. The variable "i" was chosen to come before "o" in the argument list because it makes the bruijn indices on the lambda calculus version look exactly like the bitstring for the ASCII.
+Although unconventional, chars can be encoded as functions of two variables that return octuples. For example, the char 'a', which is 97 in ASCII and 01100001 in binary, can be represented as the Haskell function (\ i o t -> (t o i i o o o o i)). I'm not sure this is a good idea, though, and am considering replacing by a 8-tuple of bools, since that can be encoded on the ADT system.  The syntax used by Caramel is identical to Haskell's char syntax. 
 
 ```haskell
 'a'
