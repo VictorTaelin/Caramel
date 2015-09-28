@@ -168,7 +168,7 @@ The simplest implementation of natural numbers on the Lambda Calculus is the chu
 Expands to/from the Lambda Calculus as:
 
 ```haskell
-λλ(1 (1 (1 0))) -- bruijn indices again
+λλ(1 (1 (1 0)))
 ```
 
 ## Lists
