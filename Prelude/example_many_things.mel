@@ -31,7 +31,7 @@ two   = (triple.get_second (1,2,3))
 three = (triple.get_third (1,2,3))
 
 -- Tuple application resembles the traditional function syntax
--- using the @ function, defined on "cominators.mel"
+-- using the @ function, defined on "combinators.mel"
 ten = (@ add (3,7))
 
 -- Lens combinators are cool for deep updates
