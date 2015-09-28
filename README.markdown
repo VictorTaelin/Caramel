@@ -110,7 +110,7 @@ Let expressions are syntax for the assignment of variables. As opposed to Haskel
 Is the same as:
 
 ```haskell
-((double square -> (double (square 3))) (x -> (mul x x)) (mul 2))
+((double -> ((square -> (double (square 3))) (x -> (mul x x)))) (mul 2))
 ```
 
 ## Where and Layout syntax
