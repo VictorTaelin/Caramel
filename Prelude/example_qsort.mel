@@ -25,7 +25,7 @@ actual_qsort l = (List.Match cons nil l)
 
 actual_qsort_example = (list: (fix actual_qsort (List: [5,6,1,4,3,7,2])))
     fix = (go 4)
-    -- The go function creates bounded-depth a recursion combinator.
+    -- The go function creates a bounded-depth recursion combinator.
     -- This is only necessary because Caramel's evaluator is overly strict.
     -- Normally you would simply use `fix = Y` (the Y-combinator) (TODO?).
 
