@@ -138,24 +138,24 @@ b = 2
 example_tld = (mul a b)
 ```
 
-Calling `mel example_tld` on the terminal, this becomes:
+By calling `mel example_tld`, the above program is expanded as follows:
 
 ```haskell
 example_tld
     a = 3
     b = 2
     example_tld = (mul a b)
+...
+{a = 3; b = 2; example_tld = (mul a b); example_tld}
+...
+((a -> ((b -> ((example_tld -> example_tld) (mul a b))) 2)) 3)
+...
+(λ(λ(λ(λ0 ((2 λλ(1 (1 (1 0)))) λλ(1 (1 0)))) λλ(1 (1 0))) λλ(1 (1 (1 0)))) λλλ(2 (1 0)))
+...
+λλ(1 (1 (1 (1 (1 (1 0))))))
 ```
 
-The above program is transformed as follows:
-    
-```haskell
-... {a = 3; b = 2; example_tld = (mul a b); example_tld}
-... (((mul a b example_tld -> example_tld) 3) 2)
-... (λ(λ(λ(λ0 ((2 λλ(1 (1 (1 0)))) λλ(1 (1 0)))) λλ(1 (1 0))) λλ(1 (1 (1 0)))) λλλ(2 (1 0)))
-... λλ(1 (1 (1 (1 (1 (1 0))))))
-... 6
-```
+Which is printed as `6`, the result of `3 * 2`.
 
 ## Natural Numbers
 
@@ -239,21 +239,13 @@ Strings are just lists of chars.
 "abcd"
 ```
 
-Is the same as:
+The program above is expanded as:
 
 ```haskell
 ['a', 'b', 'c', 'd']
-```
-
-Which is the same as:
-
-```haskell
+...
 (cons nil -> (cons 'a' (cons 'b' (cons 'c' (cons 'd' nil)))))
-```
-
-And expands to/from the Lambda Calculus as:
-
-```haskell
+...
 λλ  ((1 λλλ((((((((2 0) 1) 1) 0) 0) 0) 0) 1))
     ((1 λλλ((((((((2 0) 1) 1) 0) 0) 0) 1) 0))
     ((1 λλλ((((((((2 0) 1) 1) 0) 0) 0) 1) 1)) 
