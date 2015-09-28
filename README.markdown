@@ -337,6 +337,10 @@ There are more things than I can think of. Here are some of them:
 
 - Implement fast evaluators (the current one is as slow as it gets).
 
+- Compile to `Tromp's Binary Lambda Calculus`, as suggested by `murbard2` on [Hacker News](https://news.ycombinator.com/item?id=10288249).
+
+- Web interface (compiled via GHCJS?) as suggested by `tikhonj` also on [Hacker News](https://news.ycombinator.com/item?id=10288249).
+
 - Allow omiting application parens in some places such as inside lists (i.e., `[f 1, f 2]` istead of `[(f 1), (f 2)]`, let syntax, etc.
 
 - Translation to other languages, example: `mel main.js`, `mel main.rb`, etc.
