@@ -10,11 +10,6 @@
 <= = (flip lesser_or_equal)
 >= = (flip greater_or_equal)
 
--- Lens operators are very useful for getting,
--- setting and upating values within containers
--- such as tuples, lists and trees.
--- TODO: elaborate and explain
-
 lens_op op obj lenses x = (mut (seq lenses) (op x) obj)
 ! obj lenses operator x = (operator obj lenses x)
 . lenses operator x obj = (operator obj lenses x)
@@ -27,8 +22,3 @@ lens_op op obj lenses x = (mut (seq lenses) (op x) obj)
 *= = (lens_op *)
 /= = (lens_op /)
 ^= = (lens_op ^)
-
-lens_ops_set_example  = (! (1,2,3) [triple.first] += 4)
-lens_ops_get_example  = (? (1,2,3) [triple.first])
-lens_ops_mut_example  = (! ("olleh","world") [pair.first] @= reverse)
-lens_ops_deep_example = (! ((1,2),(3,4)) [pair.first,pair.first] += 10)
