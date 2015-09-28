@@ -193,7 +193,7 @@ And expands to/from the Lambda Calculus as:
 
 ## Tuples
 
-Very similarly to natural numbers and lists, tuples have a natural implementation based on the Church encoding. Caramel's tuple syntax for tuples is very similar to the application syntax, in that it uses parenthesis. The key difference is the presence of colons - with colons, it is a tuple, without them, it is an application. If it has only one element (e.g, `(7)`), is is an 1-tuple, not a redundant paren.
+Very similarly to natural numbers and lists, tuples have a natural implementation based on the Church encoding. Caramel's syntax for tuples is very similar to the application syntax, in that it uses parenthesis. The key difference is the presence of colons - with colons, it is a tuple, without them, it is an application. If it has only one element (e.g, `(7)`), is is an 1-tuple, not a redundant paren.
 
 ```haskell
 (a, b, c)
