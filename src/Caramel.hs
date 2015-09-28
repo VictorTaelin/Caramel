@@ -183,7 +183,7 @@ fromLambda term = L.fold lam app var term (M.empty :: M.Map Int String) 0 where
         getLst term = Just term
 
     -- Church tuples to Tup, 
-    -- i.e., (t -> (t 1 2 3)) to {1,2,3}
+    -- i.e., (t -> (t 1 2 3)) to (1,2,3)
     tupSugar term@(Lam [tupVar] body@(App (Var t : xs)))
         | t == tupVar
         && not (any (freeVarInTerm tupVar) xs)
