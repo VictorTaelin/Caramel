@@ -282,7 +282,7 @@ a = 7 -- I'm too
 
 ## ADTs
 
-First-class Algebraid DataTypes (ADT) are experimental and the most complex feature here. They are (supposed to be) first class descriptions of algebraic datatypes. While it works, it is very likely that my design is imperfect and there are better solutions. They replicate most of the functionaly of Haskell's datatypes. They do not replicate the typechecking side.
+First-class Algebraic DataTypes (ADT) are experimental and the most complex feature here. They are (supposed to be) first class descriptions of algebraic datatypes. While it works, it is very likely that my design is imperfect and there are better solutions. They replicate most of the functionaly of Haskell's datatypes. They do not replicate the typechecking side.
 
 In Haskell, we have:
 
@@ -302,7 +302,7 @@ Tree a = #{Tree {tag : a, children : (List *)}}
 TLB    = (Tree (List Bool))
 ```
 
-Notice recursion uses the special `\*` character, repeated n times, which works like bruijn indexed variables, refering to the nth enclosing complete ADT. Polymorphic types are just functions returning ADTs. Also, the syntax does not (as a design principle) create any top level definition. To get the constructors, pattern matching, accessors and so on you have in Haskell, you need to use **high-order derivers** such as `Ctor`, `Show`, `Match`, `Getter`, `Fold`.
+Notice recursion uses the special `*` character, repeated n times, which works like bruijn indexed variables, refering to the nth enclosing complete ADT. Polymorphic types are just functions returning ADTs. Also, the syntax does not (as a design principle) create any top level definition. To get the constructors, pattern matching, accessors and so on you have in Haskell, you need to use **high-order derivers** such as `Ctor`, `Show`, `Match`, `Getter`, `Fold`.
 
 ```haskell
 Bool  = #{True | False}
