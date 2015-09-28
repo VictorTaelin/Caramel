@@ -6,18 +6,18 @@ Caramel is a set of bidirectional, Haskell-inspired **syntax-sugars** that are e
 
 ## Example
 
-The following Caramel (`.mel`) file implements sorting on the Lambda Calculus:
+The following Caramel (`.mel`) file implements QuickSort on the Lambda Calculus:
 
 ```haskell
 -- example_qsort.mel
 
-qsort          = (foldr cons nil)
+qsort          = (match cons nil)
     nil        = []
     cons x xs  = (flatten [smalls,[x],bigs])
-        smalls = (filter (< x) xs)
-        bigs   = (filter (> x) xs)
+        smalls = (qsort (filter (< x) xs))
+        bigs   = (qsort (filter (> x) xs))
 
-qsort_example = (qsort [5,6,1,4,3,7,2])
+qsort_example = (fix qsort [5,6,1,4,3,7,2])
 ```
 
 You can run it by typing `mel qsort_example` on the Prelude directory. It looks for the `qsort_example` definition through all `.mel` files on the dir, expands it to a pure Lambda Calculus term, evaluates, and then prints the result on the Caramel syntax:
@@ -46,7 +46,8 @@ $ mel qsort_example.lam
 
 In a future, you'll be also able to compile your programs to other languages such as JavaScript, Haskell and Scheme using `mel my_program.js`, for example.
 
-More examples can be found on the Prelude directory, with the "example" prefix. I suggest looking at [this one](https://github.com/MaiaVictor/caramel/blob/master/Prelude/example_many_things.mel) first. Mind the remaining of the files there were mostly written on the Lambda Calculus before Caramel and are under ongoing refactoring.
+More examples can be found on the Prelude directory, with the "example" prefix. I suggest looking at [this one](https://github.com/MaiaVictor/caramel/blob/master/Prelude/example_many_things.mel) first.
+See [`example_qsort.mel`](https://github.com/MaiaVictor/caramel/blob/master/Prelude/example_qsort.mel) for more on the QuickSort example. Mind the remaining of the files there were mostly written on the Lambda Calculus before Caramel and are under ongoing refactoring.
 
 # Featured syntax-sugars
 

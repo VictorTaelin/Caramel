@@ -1,17 +1,33 @@
--- A pretty sorting example.
--- Note this is just a demo of the syntax - qsort is not quite the QuickSort
--- because pattern matching on Church Lists is slow! To get the actual
--- QuickSort one just has to use Scott lists (i.e., `(to_scott_list
--- [9,7,6,10,3,5,1])`). See "open problems" for a discussion of the encodings.
--- There are much faster sorting functions for church lists, though. (TODO:
--- show/explain those).
+-- A pretty QuickSort example.
 
-qsort          = (foldr cons nil)
+-- Note this is not the actual QuickSort. The issue is that Caramel
+-- uses church-encoded lists by default, which have no constant-time pattern
+-- matching function.
+qsort          = (match cons nil)
     nil        = []
     cons x xs  = (flatten [smalls,[x],bigs])
-        smalls = (filter (< x) xs)
-        bigs   = (filter (> x) xs)
+        smalls = (qsort (filter (< x) xs))
+        bigs   = (qsort (filter (> x) xs))
 
-qsort_example = (qsort [5,6,1,4,3,7,2])
+qsort_example = (fix qsort [5,6,1,4,3,7,2])
+    fix = (@ id)
+    -- Church lists already have recursion, so Y-combinator isn't needed.
 
---main = qsort_example
+-- The actual QuickSort is almost identical, but requires us to convert
+-- the list to the scott encoding using "List:", and use the proper list
+-- functions for the Scott encoding (defined on list.mel). Syntax for
+-- Scott lists could be added in a future to improve this one.
+actual_qsort l = (List.Match cons nil l)
+    nil        = Nil
+    cons x xs  = (List.Flatten (List: [smalls,(List: [x]),bigs]))
+        smalls = (actual_qsort (List.Filter (< x) xs))
+        bigs   = (actual_qsort (List.Filter (> x) xs))
+
+actual_qsort_example = (list: (fix actual_qsort (List: [5,6,1,4,3,7,2])))
+    fix = (go 4)
+    -- The go function creates bounded-depth a recursion combinator.
+    -- This is only necessary because Caramel's evaluator is overly strict.
+    -- Normally you would simply use `fix = Y` (the Y-combinator) (TODO?).
+
+-- It os worth noting that there are much more efficient ways to sort church
+-- encoded lists than the QuickSort - I should explain those ideas soon (TODO).
