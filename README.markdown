@@ -67,7 +67,7 @@ See [`example_qsort.mel`](https://github.com/MaiaVictor/caramel/blob/master/Prel
 
 ## Lambdas
 
-Lambda Calculus's lambdas are anonymous, single argument functions. Caramell's lambda syntax allows creating anonymous functions with multiple named variables separated from the body by an arrow. 
+Lambda Calculus's lambdas are anonymous, single argument functions. Caramel's lambda syntax allows creating anonymous functions with multiple named variables separated from the body by an arrow. 
 
 Example:
 
