@@ -18,6 +18,13 @@ fold lam app var term = go term where
     go (App left right) = app (go left) (go right)
     go (Var idx)        = var idx
 
+-- Folds over a term with scoped/named variables (using Int names).
+foldScoped :: (Int -> t -> t) -> (t -> t -> t) -> (Int -> t) -> Term -> t
+foldScoped lam app var term = fold lam' app' var' term 0 where
+    lam' body depth       = lam depth (body (depth+1))
+    app' left right depth = app (left depth) (right depth)
+    var' idx depth        = var (depth-1-idx)
+
 -- Pretty prints a term.
 pretty :: Term -> String
 pretty (Var n)   = show n

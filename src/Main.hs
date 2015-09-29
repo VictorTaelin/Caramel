@@ -7,6 +7,7 @@ import System.Directory
 import System.Environment
 import System.Exit
 import qualified Lambda as L
+import qualified Transmogrifier as T
 
 main = do
     dir       <- getCurrentDirectory
@@ -26,7 +27,13 @@ main = do
     let source = symbolName ++ "\n" ++ (unlines . map ("    " ++) . lines $ contents)
     let result = sortRecursiveLets $ parse source
     let format = case symbolFormat of
-            "lam"     -> L.pretty . toLambda . reduce
-            "lam?"    -> L.pretty . toLambda
+            "lam"     -> L.pretty       . L.reduce . toLambda
+            "lam?"    -> L.pretty                  . toLambda
+            "js"      -> T.toJavaScript . L.reduce . toLambda
+            "scm"     -> T.toScheme     . L.reduce . toLambda
+            "lua"     -> T.toLua        . L.reduce . toLambda
+            "hs"      -> T.toHaskell    . L.reduce . toLambda
+            "py"      -> T.toPython     . L.reduce . toLambda
+            "rb"      -> T.toRuby       . L.reduce . toLambda
             otherwise -> pretty . reduce
     putStrLn (format result)

@@ -8,9 +8,11 @@ import Data.List.Split (splitOn)
 import Data.Maybe (listToMaybe,fromJust)
 import Text.ParserCombinators.ReadP
 import Text.Printf
+import Util
 import qualified Data.Map as M
 import qualified Data.Set as S
 import qualified Lambda as L
+import qualified Transmogrifier as T
 
 -- The main datatype of Caramel's syntax sugars.
 data Caramel 
@@ -223,12 +225,6 @@ fromLambda term = L.fold lam app var term (M.empty :: M.Map Int String) 0 where
 
     -- TODO: ADT fromLambda
     adt = undefined
-
-    -- List of all strings consisting of upper/lowercase letters.
-    infiniteAlphabet :: [String]
-    infiniteAlphabet = do 
-        x <- [1..]
-        replicateM x (['a'..'z']++['A'..'Z'])
         
     -- Is given variable free in a term?
     freeVarInTerm :: String -> Caramel -> Bool
@@ -265,9 +261,6 @@ toLambda term = go term (M.empty :: M.Map String Int) 0 where
             app left right depth             = L.App (left depth) (right depth)
             var index depth | index == depth = L.Lam (L.Var (index+1))
             var index depth | otherwise      = L.Var index
-    call n f x = go n x where
-        go 0 x = x
-        go k x = go (k-1) (f x)
 
 -- Returns a list of the free variables in a Caramel term.
 freeVars :: Caramel -> [String]

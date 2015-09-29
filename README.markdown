@@ -44,10 +44,47 @@ $ mel qsort_example.lam
 # (Identation added manually.)
 ```
 
-In a future, you'll be also able to compile your programs to other languages such as JavaScript, Haskell and Scheme using `mel my_program.js`, for example.
-
 More examples can be found on the Prelude directory, with the "example" prefix. I suggest looking at [this one](https://github.com/MaiaVictor/caramel/blob/master/Prelude/example_many_things.mel) first.
 See [`example_qsort.mel`](https://github.com/MaiaVictor/caramel/blob/master/Prelude/example_qsort.mel) for more on the QuickSort example. Mind most of the remaining of files there were written before Caramel and need some refactoring to better show Caramel's syntax.
+
+# Transmogrifiers
+
+Transmogrifiers convert Lambda Calculus programs to popular programming languages, allowing Caramel code to be used in almost any environment. To invoke a transmogrifier, use `mel your_term.<ext>`, where `<ext>` is the extension of the target language's files. This example translates the λ-calculus number `4` to different langauges:
+
+```bash
+$ mel 4.js
+(function(a){return (function(b){return a(a(a(a(b))))})})
+
+$ mel 4.py
+(lambda a: (lambda b: a(a(a(a(b))))))
+
+$ mel 4.rb
+(->(a){(->(b){a.(a.(a.(a.(b))))})})
+
+$ mel 4.lua
+(function (a) return (function (b) return a(a(a(a(b)))) end) end)
+
+$ mel 4.scm
+(lambda(a)(lambda(b)(a (a (a (a b))))))
+
+$ mel 4.hs
+(let (#) = unsafeCoerce in (\a->(\b->(a#(a#(a#(a#b)))))))
+```
+
+Here is how you can call the `fib` definition on Prelude from JavaScript:
+
+```javascript
+// Utils to convert between native Numbers and Lambda-encoded numbers.
+var lambda = require("IO/lambda.js");
+
+// Obtained using `mel fib.js`
+var fib = lambda.natFn(function(a){return a((function(b){return b((function(c){return (function(d){return (function(e){return e(d)((function(f){return (function(g){return c(f)(d(f)(g))})}))})})}))}))((function(b){return b((function(c){return (function(d){return d})}))((function(c){return (function(d){return c(d)})}))}))((function(b){return (function(c){return b})}))})
+
+// Outputs 55
+console.log(fib(10))
+```
+
+See `IO` directory for more information in how to use Caramel functions inside different environments.
 
 # Featured syntax-sugars
 
@@ -346,7 +383,7 @@ There are more things than I can think of. Here are some of them:
 
 - Shorter syntax for ADTs when you don't want to specify field names (i.e., `List a = #{Cons a * | Nil}`).
 
-- Translation to other languages, example: `mel main.js`, `mel main.rb`, etc.
+- More Transmogrifiers and lambda IO for more languages (see the `IO` directory).
 
 - Create Church-Encoded libraries on the other languages so they can interact with lambda-calculus compiled terms. For example, creating a `church_list_to_array` function on JavaScript, and similar things - this would be even better paired with derivers, write a generic `ADT_to_JSON` and `JSON_to_ADT`.
 
