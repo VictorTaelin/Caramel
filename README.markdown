@@ -49,7 +49,7 @@ See [`example_qsort.mel`](https://github.com/MaiaVictor/caramel/blob/master/Prel
 
 # Transmogrifiers
 
-Transmogrifiers convert Lambda Calculus programs to popular programming languages, allowing Caramel code to be used in almost any environment. To invoke a transmogrifier, use `mel your_term.<ext>`, where `<ext>` is the extension of the target language's files. This example translates the λ-calculus number `4` to different langauges:
+Transmogrifiers convert Lambda Calculus programs to popular programming languages, allowing Caramel code to be used in almost any environment. To invoke a transmogrifier, use `mel your_term.<ext>`, where `<ext>` is the extension of the target language's files. This example translates the λ-calculus number `4` to different languages:
 
 ```bash
 $ mel 4.js
