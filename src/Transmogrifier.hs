@@ -43,3 +43,9 @@ toOptlam = fold lam app var where
     lam body        = "L("++body++")"
     app left right  = "A("++left++","++right++")"
     var index       = "V("++show index++")"
+
+toBinaryLambdaCalculus :: Term -> String
+toBinaryLambdaCalculus = fold lam app var where
+    lam body       = "00" ++ body
+    app left right = "01" ++ left ++ right
+    var index      = replicate index '1' ++ "0"

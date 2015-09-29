@@ -69,6 +69,9 @@ $ mel 4.scm
 
 $ mel 4.hs
 (let (#) = unsafeCoerce in (\a->(\b->(a#(a#(a#(a#b)))))))
+
+$ mel 4.blc
+000001100110011001100
 ```
 
 Here is how you can call the `fib` definition on Prelude from JavaScript:

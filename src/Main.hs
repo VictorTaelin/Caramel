@@ -36,5 +36,6 @@ main = do
             "py"      -> T.toPython     . L.reduce . toLambda
             "rb"      -> T.toRuby       . L.reduce . toLambda
             "opt"     -> T.toOptlam     . L.reduce . toLambda
+            "blc"     -> T.toBinaryLambdaCalculus . L.reduce . toLambda
             otherwise -> pretty . reduce
     putStrLn (format result)
