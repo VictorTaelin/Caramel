@@ -37,3 +37,9 @@ toRuby :: Term -> String
 toRuby = transmogrify lam app where
     lam var body    = "(->("++var++"){"++body++"})"
     app left right  = left ++ ".(" ++ right ++ ")"
+
+toOptlam :: Term -> String
+toOptlam = fold lam app var where
+    lam body        = "L("++body++")"
+    app left right  = "A("++left++","++right++")"
+    var index       = "V("++show index++")"

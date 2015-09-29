@@ -35,5 +35,6 @@ main = do
             "hs"      -> T.toHaskell    . L.reduce . toLambda
             "py"      -> T.toPython     . L.reduce . toLambda
             "rb"      -> T.toRuby       . L.reduce . toLambda
+            "opt"     -> T.toOptlam     . L.reduce . toLambda
             otherwise -> pretty . reduce
     putStrLn (format result)
