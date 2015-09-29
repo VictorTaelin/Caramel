@@ -52,24 +52,31 @@ See [`example_qsort.mel`](https://github.com/MaiaVictor/caramel/blob/master/Prel
 Transmogrifiers convert Lambda Calculus programs to popular programming languages, allowing Caramel code to be used in almost any environment. To invoke a transmogrifier, use `mel your_term.<ext>`, where `<ext>` is the extension of the target language's files. This example translates the λ-calculus number `4` to different languages:
 
 ```bash
+# JavaScript
 $ mel 4.js
 (function(a){return (function(b){return a(a(a(a(b))))})})
 
+# Python
 $ mel 4.py
 (lambda a: (lambda b: a(a(a(a(b))))))
 
+# Ruby
 $ mel 4.rb
 (->(a){(->(b){a.(a.(a.(a.(b))))})})
 
+# Lua
 $ mel 4.lua
 (function (a) return (function (b) return a(a(a(a(b)))) end) end)
 
+# Scheme
 $ mel 4.scm
 (lambda(a)(lambda(b)(a (a (a (a b))))))
 
+# Haskell
 $ mel 4.hs
 (let (#) = unsafeCoerce in (\a->(\b->(a#(a#(a#(a#b)))))))
 
+# John Tromp's Binary Lambda Calculus
 $ mel 4.blc
 000001100110011001100
 ```
