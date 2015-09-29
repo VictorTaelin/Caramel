@@ -20,7 +20,7 @@ qsort          = (match cons nil)
 qsort_example = (fix qsort [5,6,1,4,3,7,2])
 ```
 
-You can run it by typing `mel qsort_example` on the Prelude directory. It looks for the `qsort_example` definition through all `.mel` files on the dir, expands it to a pure Lambda Calculus term, evaluates, and then prints the result on the Caramel syntax:
+You can run it by typing `mel qsort_example` on the Prelude directory. It looks for the `qsort_example` definition through all `.mel` files on the dir, expands it to a pure Lambda Calculus term, evaluates (to [beta normal form](https://en.wikipedia.org/wiki/Beta_normal_form)), and then prints the result on the Caramel syntax:
 
 ```haskell
 $ cd Prelude
