@@ -3,7 +3,7 @@ module Caramel where
 import Control.Applicative ((<*>),(<$>))
 import Control.Monad (msum,replicateM)
 import Data.Char
-import Data.List (intercalate,foldl1')
+import Data.List (intercalate,foldl1',unfoldr)
 import Data.List.Split (splitOn)
 import Data.Maybe (listToMaybe,fromJust)
 import Text.ParserCombinators.ReadP
@@ -246,11 +246,11 @@ toLambda term = go term (M.empty :: M.Map String Int) 0 where
     num n scope depth = L.Lam (L.Lam (call n (L.App (L.Var 1)) (L.Var 0)))
     lst terms scope depth = L.Lam (L.Lam (foldr (\ h t -> L.App (L.App (L.Var 1) (h scope (depth+2))) t) (L.Var 0) terms))
     tup terms scope depth = L.Lam (foldl (\ t h -> L.App t (h scope (depth+1))) (L.Var 0) terms)
-    chr c scope depth = L.Lam (L.Lam (L.Lam (foldl bits (L.Var 2) (printf "%08b" (fromEnum c) :: String))))
-        where bits t h = L.App t (L.Var (fromEnum h - fromEnum '0'))
+    chr c scope depth = L.Lam (L.Lam (L.Lam (foldr bits (L.Var 2) (numToBoolList (fromEnum c)))))
+        where bits bit expr = L.App expr (L.Var (if bit then 1 else 0))
     str s scope depth = toLambda (Lst (map Chr s))
-    wrd c scope depth = L.Lam (L.Lam (L.Lam (foldl bits (L.Var 2) (printf "%032b" (fromEnum c) :: String))))
-        where bits t h = L.App t (L.Var (fromEnum h - fromEnum '0'))
+    wrd c scope depth = L.Lam (L.Lam (L.Lam (foldr bits (L.Var 2) (numToBoolList (fromEnum c)))))
+        where bits bit expr = L.App expr (L.Var (if bit then 1 else 0))
     adt ctors scope depth  = L.Lam (L.App (L.Var 0) (list (map ctor ctors))) where
         ctor (name,ctor)   = pair (toLambda (Str name)) (applyConstToBoundVar (L.Lam (list (map field ctor))))
         field (name,field) = pair (toLambda (Str name)) (L.App (field (M.insert "*" (depth+4) scope) (depth+8)) (L.Var 7))
@@ -261,6 +261,13 @@ toLambda term = go term (M.empty :: M.Map String Int) 0 where
             app left right depth             = L.App (left depth) (right depth)
             var index depth | index == depth = L.Lam (L.Var (index+1))
             var index depth | otherwise      = L.Var index
+
+--Internal utility function for toLambda
+numToBoolList :: Integral a => a -> [Bool]
+numToBoolList = unfoldr step
+  where step 0 = Nothing
+        step n = case n `quotRem` 2 of
+                   (quot, rem) -> Just (rem == 1, quot)
 
 -- Returns a list of the free variables in a Caramel term.
 freeVars :: Caramel -> [String]
