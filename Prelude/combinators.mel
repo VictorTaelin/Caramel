@@ -7,6 +7,8 @@ comp f g x = (f (g x))
 on f g x y = (f (g x y))
 @ x f      = (f x)
 
+-- `E` should be an Eraser node on interaction nets
+E = id
 I = id
 B = comp
 C = flip
