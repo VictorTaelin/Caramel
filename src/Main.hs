@@ -26,16 +26,17 @@ main = do
     let (symbolName:symbolFormat:_) = splitOn "." symbolFile ++ ["mel"]
     let source = symbolName ++ "\n" ++ (unlines . map ("    " ++) . lines $ contents)
     let result = sortRecursiveLets $ parse source
-    let format = case symbolFormat of
-            "lam"     -> L.pretty       . L.reduce . toLambda
-            "lam?"    -> L.pretty                  . toLambda
-            "js"      -> T.toJavaScript . L.reduce . toLambda
-            "scm"     -> T.toScheme     . L.reduce . toLambda
-            "lua"     -> T.toLua        . L.reduce . toLambda
-            "hs"      -> T.toHaskell    . L.reduce . toLambda
-            "py"      -> T.toPython     . L.reduce . toLambda
-            "rb"      -> T.toRuby       . L.reduce . toLambda
-            "opt"     -> T.toOptlam     . L.reduce . toLambda
-            "blc"     -> T.toBinaryLambdaCalculus . L.reduce . toLambda
-            otherwise -> pretty . reduce
+    let reduce = if last symbolFormat == '!' then L.reduceNaive else L.reduce
+    let format = case filter (/= '!') symbolFormat of
+            "lam"     -> L.pretty                 . reduce     . toLambda
+            "lam?"    -> L.pretty                              . toLambda
+            "js"      -> T.toJavaScript           . reduce     . toLambda
+            "scm"     -> T.toScheme               . reduce     . toLambda
+            "lua"     -> T.toLua                  . reduce     . toLambda
+            "hs"      -> T.toHaskell              . reduce     . toLambda
+            "py"      -> T.toPython               . reduce     . toLambda
+            "rb"      -> T.toRuby                 . reduce     . toLambda
+            "opt"     -> T.toOptlam               . reduce     . toLambda
+            "blc"     -> T.toBinaryLambdaCalculus . reduce     . toLambda
+            otherwise -> pretty      . fromLambda . reduce     . toLambda
     putStrLn (format result)
