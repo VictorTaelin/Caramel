@@ -260,23 +260,19 @@ And expands to/from the Lambda Calculus as:
 
 ## Chars
 
-Although unconventional, chars can be encoded as functions of two variables that return octuples. For example, the char 'a', which is 97 in ASCII and 01100001 in binary, can be represented as the Haskell function (\ i o t -> (t o i i o o o o i)). I'm not sure this is a good idea, though, and am considering replacing by a 8-tuple of bools, since that can be encoded on the ADT system.  The syntax used by Caramel is identical to Haskell's char syntax. 
+Chars can be encoded as 8-tuples of booleans. For example, the char 'a', which is 97 in ASCII and 01100001 in binary, can be represented as tuple (t -> (t F T T F F F F T)). The syntax is the usual:
 
 ```haskell
 'a'
 ```
 
-Is the same as:
+Which is expanded to/from the Lambda Calculus as:
 
 ```haskell
-(i o t -> (t o i i o o o o i)) 
+λ((((((((0 F) T) T) F) F) F) F) T)
 ```
 
-And expands to/from the Lambda Calculus as:
-
-```haskell
-λλλ((((((((2 0) 1) 1) 0) 0) 0) 0) 1)
-```
+Where `F = λλ0` (false) and `T = λλ1` (true).
 
 ## Strings
 
@@ -293,12 +289,14 @@ The program above is expanded as:
 ...
 (cons nil -> (cons 'a' (cons 'b' (cons 'c' (cons 'd' nil)))))
 ...
-λλ  ((1 λλλ((((((((2 0) 1) 1) 0) 0) 0) 0) 1))
-    ((1 λλλ((((((((2 0) 1) 1) 0) 0) 0) 1) 0))
-    ((1 λλλ((((((((2 0) 1) 1) 0) 0) 0) 1) 1)) 
-    ((1 λλλ((((((((2 0) 1) 1) 0) 0) 1) 0) 0)) 
+λλ  ((T λ((((((((0 F) T) T) F) F) F) F) T))
+    ((T λ((((((((0 F) T) T) F) F) F) T) F))
+    ((T λ((((((((0 F) T) T) F) F) F) T) T)) 
+    ((T λ((((((((0 F) T) T) F) F) T) F) F)) 
         0 ))))
 ```
+
+Where `F = λλ0` (false) and `T = λλ1` (true).
 
 ## Words
 
@@ -311,12 +309,14 @@ Words are 32-bit unsigned inters. The encoding is the same as chars, except the 
 Expands to/from the Lambda Calculus as:
 
 ```haskell
-λλλ((((((((((((((((((((((((((((((((2 
-    0) 0) 0) 0) 0) 0) 0) 0) 
-    0) 0) 0) 0) 0) 0) 0) 0) 
-    0) 0) 0) 0) 0) 0) 0) 0) 
-    0) 1) 1) 1) 1) 0) 1) 1)
+λ((((((((((((((((((((((((((((((((0
+    F) F) F) F) F) F) F) F) 
+    F) F) F) F) F) F) F) F) 
+    F) F) F) F) F) F) F) F) 
+    F) T) T) T) T) F) T) T)
 ```
+
+Where `F = λλ0` (false) and `T = λλ1` (true).
 
 ## Comments
 

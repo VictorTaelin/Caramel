@@ -1,6 +1,0 @@
--- Lambda Calculus lens, inspired by Edward's lens, but without typeclasses.
--- TODO: explain.
-lens = (getter setter -> (modify thing wrap -> (wrap (modify (getter thing) wrap) (flip setter thing))))
-get  = (lens thing -> (lens (x y -> x) thing (a b -> a)))
-mut  = (lens f thing -> (lens (x y -> (f x)) thing (a b -> (b a))))
-set  = (lens val -> (mut lens (const val)))

@@ -1,4 +1,0 @@
-frac   = (n m f -> (n (m tupler id (a b -> (b (f a))))))
-floor  = (m r f x -> (tuple.repeat m x (r f (last_arg_of m))))
-rfrac  = (n m f -> (n (x y -> (m (a b c -> (a (b c))) (e -> (e (f y))) (a -> x) id))))
-rfloor = (m r f x -> (tuple.repeat m x (r f (first_arg_of m))))
