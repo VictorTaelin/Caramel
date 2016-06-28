@@ -143,7 +143,7 @@ parse = fst . head . reverse . readP_to_S (term 0) . stripComments where
     -- An idented definition.
     def d = pairedSpaced pair names (char '=') (term d) where
         pair    = \ (name:vars) value -> (name, vars, value)
-        names   = sepBy word (char ' ')
+        names   = sepBy word (char ' ' >> space)
 
     -- A let expression.
     leT d = between (char '{' >> skipSpaces) (skipSpaces >> char '}') (pairedSpaced Let defs (char ';') (term d)) where 
@@ -262,8 +262,8 @@ fromLambda term = L.fold lam app var term (M.empty :: M.Map Int String) 0 where
     -- Template function to create the Chr and Wrd sugar.
     -- bitVecSugar :: Caramel -> Caramel
     bitVecSugar size ctor term = maybe term id (getChr term) where
-        getBool (Lam [t,f] (Var b)) | b == t = Just True
-        getBool (Nat 0)                      = Just False
+        getBool (Lam [t,f] (Var b)) | b == t = Just False
+        getBool (Nat 0)                      = Just True
         getBool otherwise                    = Nothing
         getChr (Tup bools)
             | length bools == size
@@ -324,12 +324,12 @@ toLambda term = go term (M.empty :: M.Map String Int) 0 where
     tup terms scope depth = L.Lam (foldl (\ t h -> L.App t (h scope (depth+1))) (L.Var 0) terms)
 
     chr c scope depth = (L.Lam (foldr bits (L.Var 0) (numToBoolList 8 (fromEnum c))))
-        where bits bit expr = L.App expr (if bit then true else false)
+        where bits bit expr = L.App expr (if bit then bit1 else bit0)
 
     str s scope depth = toLambda (Lst (map Chr s))
 
     wrd c scope depth = (L.Lam (foldr bits (L.Var 2) (numToBoolList 32 (fromEnum c))))
-        where bits bit expr = L.App expr (if bit then true else false)
+        where bits bit expr = L.App expr (if bit then bit1 else bit0)
 
     adt ctors scope depth  = L.Lam (L.App (L.Var 0) (list (map ctor ctors))) where
         -- ctor (name,ctor)   = pair (toLambda (Str name)) (applyConstToBoundVar (L.Lam (list (map field ctor))))
@@ -348,9 +348,9 @@ toLambda term = go term (M.empty :: M.Map String Int) 0 where
             var index depth | index == depth = L.Lam (L.Var (index+1))
             var index depth | otherwise      = L.Var index
 
-    true  = L.Lam (L.Lam (L.Var 1))
+    bit0  = L.Lam (L.Lam (L.Var 1))
 
-    false = L.Lam (L.Lam (L.Var 0))
+    bit1 = L.Lam (L.Lam (L.Var 0))
 
     --Internal utility function for toLambda
     numToBoolList :: Int -> Int -> [Bool]

@@ -32,11 +32,15 @@ main = do
             "lam?"    -> L.pretty                              . toLambda
             "js"      -> T.toJavaScript           . reduce     . toLambda
             "scm"     -> T.toScheme               . reduce     . toLambda
+            "scm?"    -> T.toScheme                            . toLambda
             "lua"     -> T.toLua                  . reduce     . toLambda
             "hs"      -> T.toHaskell              . reduce     . toLambda
             "py"      -> T.toPython               . reduce     . toLambda
             "rb"      -> T.toRuby                 . reduce     . toLambda
             "opt"     -> T.toOptlam               . reduce     . toLambda
             "blc"     -> T.toBinaryLambdaCalculus . reduce     . toLambda
+            "blc?"    -> T.toBinaryLambdaCalculus              . toLambda
+            "ast"     -> T.toAst                  . reduce     . toLambda
+            "mel?"    -> pretty      . fromLambda              . toLambda
             otherwise -> pretty      . fromLambda . reduce     . toLambda
     putStrLn (format result)

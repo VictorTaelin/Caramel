@@ -48,4 +48,10 @@ toBinaryLambdaCalculus :: Term -> String
 toBinaryLambdaCalculus = fold lam app var where
     lam body       = "00" ++ body
     app left right = "01" ++ left ++ right
-    var index      = replicate index '1' ++ "0"
+    var index      = replicate (index+1) '1' ++ "0"
+
+toAst :: Term -> String
+toAst = fold lam app var where
+    lam body       = "Lam(" ++ body ++ ")"
+    app left right = "App(" ++ left ++ "," ++ right ++ ")"
+    var index      = "Var(" ++ show index ++ ")"
